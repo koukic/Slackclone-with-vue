@@ -1,14 +1,35 @@
 <template>
  <div class="chat-container">
    <div class="thumbnail-container">
-     <img src="https://avatars1.githubusercontent.com/u/48335987?s=400&u=3b42f3855e175eb7f850bf3c28ff2262bfd446_400x400.jpg" />
+     <img :src="message.user.thumbnail" />
    </div>
    <div class="message-container">
-     <div class="user-name">koukic</div>
-     <div class="message">今日も良い天気ですね</div>
+     <div class="user-name">{{ displayName }}</div>
+     <div class="message">{{ message.text }}</div>
    </div>
  </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      message: {
+        text: '今日もいい天気ですね',
+        user: {
+          thumbnail: 'https://avatars1.githubusercontent.com/u/48335987?s=400&u=3b42f3855e175eb7f850bf3c28ff2262bfd446_400x400.jpg',
+          name: 'koukic'
+        }
+      }
+    }
+  },
+  computed: {
+    displayName() {
+      return "@" + this.message.user.name
+    }
+  }
+}
+</script>
 
 <style scoped>
 .chat-container {
