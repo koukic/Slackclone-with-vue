@@ -5,9 +5,10 @@
         チャンネル一覧
       </p>
       <p v-for='channel in channels'>
-        {{ channel.name }}
+        <nuxt-link :to="`/channels/${channel.id}`">
+          {{ channel.name}}
+        </nuxt-link>
       </p>
-
     </div>
     <div class='main-content'>
       <nuxt />
@@ -28,7 +29,7 @@ export default {
     db.collection('channels').get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          this.channels.push(doc.data())
+          this.channels.push({id: doc.id, ...doc.data()})
         })
       })
     console.log(this.channels)
@@ -70,6 +71,10 @@ html {
 .sidebar p {
   color: #DDDDDD;
   padding-top: 4px;
+}
+
+.sidebar a {
+  color: #DDDDDD;
 }
 
 .main-content {
