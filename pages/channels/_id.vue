@@ -1,7 +1,7 @@
 <template>
   <div class='container'>
     <div class='chats-layout'>
-      <messages />
+      <messages :messages='messages' />
     </div>
 
     <div class='input-layout'>
@@ -27,10 +27,13 @@ export default {
   },
   mounted () {
     const channelId = this.$route.params.id
-    db.collection('channels').doc(channelId).collection('messages').get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          this.messages.push({id: doc.id, ...doc.data()})
+    db.collection('channels').doc(channelId).collection('messages')
+      .onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          const doc = change.doc
+          if (change.type === 'added') {
+            this.messages.push({id: doc.id, ...doc.data()})
+          }
         })
       })
   }
