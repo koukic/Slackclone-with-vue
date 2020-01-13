@@ -6,6 +6,7 @@
 
 <script>
 import { firebase } from '~/plugins/firebase'
+
 export default {
   methods: {
     login() {
