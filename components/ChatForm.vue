@@ -6,7 +6,7 @@
     :visible.sync='dialogVisible'
     width='30%'>
     <div class ='image-container'>
-      <img src='~/assets/google_sign_in.png' @click='login'/>
+      <img src="~/assets/google_sign_in.png" v-on:click="login"/>
     </div>
   </el-dialog>
 
@@ -17,6 +17,7 @@
 import { db, firebase } from '~/plugins/firebase'
 
 import Vue from 'vue'
+import { mapActions } from 'vuex'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
@@ -29,6 +30,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setUser']),
     openLoginModal() {
       this.dialogVisible = true
     },
@@ -51,7 +53,8 @@ export default {
       firebase.auth().signInWithPopup(provider)
         .then((result) => {
           const user = result.user
-          console.log(user)
+          this.setUser(user)
+          console.log(this.$store.state.user)
           this.dialogVisible = false
         }).catch((error) => {
           window.alert(error)
