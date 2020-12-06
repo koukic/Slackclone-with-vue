@@ -20,3 +20,7 @@ $ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+## UI
+[![Image from Gyazo](https://i.gyazo.com/bbb581587b9641f9d9b137d7f515160d.png)](https://gyazo.com/bbb581587b9641f9d9b137d7f515160d)
+
